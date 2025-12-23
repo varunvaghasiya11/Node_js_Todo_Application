@@ -35,7 +35,10 @@
 
             <h1 class="text-center fw-semibold text-white bg-black rounded-3 mt-2">Todo Application</h1>
             <hr/>
-            <% let edit = (typeof editTodo !== 'undefined') ? editTodo : null; %>
+            <%
+                const todos = (typeof data !== 'undefined' && Array.isArray(data)) ? data : [];
+                const edit = (typeof editTodo !== 'undefined') ? editTodo : null;
+            %>
 
             <div class="card shadow-lg p-4 mb-4 bg-black">
                 <h4 class="mb-3 text-secondary text-white"><%= edit ? "Update Todo" : "Add New Todo" %></h4>
@@ -75,17 +78,17 @@
                 <h4 class="mb-3 text-secondary text-white">
                     Your Todos
                 </h4>
-                <% if (data.length === 0) { %>
+                <% if (todos.length === 0) { %>
                     <p class="text-white text-center">
                         No todos added yet.
                     </p>
                 <% } %>
-                <% data.forEach(t => { %>
+                <% todos.forEach(t => { %>
                     <div class="card todo-card mb-3 p-3 shadow-sm border-2 bg-black border-white text-white w-100 rounded-4">
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="">
                                 <div class="fs-5 fw-semibold text-white"><%= t.todo %></div>
-                                <div class="small text-white"><%= t.time %></div>
+                                <div class="small text-white"><%= new Date(t.time).toLocaleString() %></div>
                                 <span class="badge bg-info text-dark mt-2"><%= t.category %></span>
                             </div>
                             <div>

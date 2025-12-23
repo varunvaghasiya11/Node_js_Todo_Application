@@ -2,7 +2,9 @@ const express = require('express');
 const bodyparse = require('body-parser');
 const route = require('./routes/todoroute');
 
+const db = require('./database/db');
 const server = express();
+db();
 
 server.use(express.static('public'));
 server.use(bodyparse.urlencoded({extended:true}));
